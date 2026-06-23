@@ -84,10 +84,10 @@ function App() {
           {notes.map((note) => (
             <div key={note.id} style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '15px' }}>
               <h3>{note.title?.[0]}</h3>
-              <p>{note.content}</p>
+              <p>{note.content?.[0]}</p>
 
               <button onClick={() => updateNote(note.id)}>Update</button>
-              <button onClick={() => deleteNote(note.id)} style={{ marginLeft: '10px' }}>
+              <button onClick={() => deleteNote(note.id)} style={{ marginLeft: '10px' }}> 
                 Delete
               </button>
             </div>
