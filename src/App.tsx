@@ -23,7 +23,7 @@ function App() {
     await client.models.Note.create({
   title: [title],
   content: [content],
-    })
+    }as any)
 
     setTitle('')
     setContent('')
@@ -83,8 +83,8 @@ function App() {
 
           {notes.map((note) => (
             <div key={note.id} style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '15px' }}>
-              <h3>{note.title?.[0]}</h3>
-              <p>{note.content?.[0]}</p>
+              <h3>{Array.isArray(note.title) ? note.title[0] : note.title}</h3>
+              <p>{Array.isArray(note.content) ? note.content[0] : note.content}</p>              
 
               <button onClick={() => updateNote(note.id)}>Update</button>
               <button onClick={() => deleteNote(note.id)} style={{ marginLeft: '10px' }}> 
