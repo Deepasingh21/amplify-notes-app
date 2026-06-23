@@ -21,8 +21,8 @@ function App() {
     event.preventDefault()
 
     await client.models.Note.create({
-      title,
-      content,
+  title: [title],
+  content: [content],
     })
 
     setTitle('')
@@ -35,9 +35,9 @@ function App() {
     if (!newTitle) return
 
     await client.models.Note.update({
-      id,
-      title: newTitle,
-    })
+  id: id as any,
+  title: [newTitle],
+} as any)
 
     fetchNotes()
   }
@@ -83,7 +83,7 @@ function App() {
 
           {notes.map((note) => (
             <div key={note.id} style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '15px' }}>
-              <h3>{note.title}</h3>
+              <h3>{note.title?.[0]}</h3>
               <p>{note.content}</p>
 
               <button onClick={() => updateNote(note.id)}>Update</button>
