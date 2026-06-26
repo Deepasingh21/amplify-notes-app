@@ -11,6 +11,7 @@ function App() {
   const [notes, setNotes] = useState<Array<Schema['Note']['type']>>([])
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [description, setDescription] = useState('')
 
   async function fetchNotes() {
     const { data } = await client.models.Note.list()
@@ -23,10 +24,12 @@ function App() {
     await client.models.Note.create({
   title: [title],
   content: [content],
+  description: [description],
     }as any)
 
     setTitle('')
     setContent('')
+    setDescription('')
     fetchNotes()
   }
 
@@ -76,6 +79,19 @@ function App() {
               style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }}
             />
 
+            <input
+  placeholder="Note description"
+  value={description}
+  onChange={(e) => setDescription(e.target.value)}
+  style={{
+    display: 'block',
+    width: '100%',
+    marginBottom: '10px',
+    padding: '8px',
+  }}
+/>
+            
+
             <button type="submit">Create Note</button>
           </form>
 
@@ -84,8 +100,16 @@ function App() {
           {notes.map((note) => (
             <div key={note.id} style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '15px' }}>
               <h3>{Array.isArray(note.title) ? note.title[0] : note.title}</h3>
-              <p>{Array.isArray(note.content) ? note.content[0] : note.content}</p>              
 
+<p>
+  <strong>Description:</strong>{' '}
+  {Array.isArray(note.description) ? note.description[0] : note.description}
+</p>
+
+<p>
+  <strong>Content:</strong>{' '}
+  {Array.isArray(note.content) ? note.content[0] : note.content}
+</p>
               <button onClick={() => updateNote(note.id)}>Update</button>
               <button onClick={() => deleteNote(note.id)} style={{ marginLeft: '10px' }}> 
                 Delete
