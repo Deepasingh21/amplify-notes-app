@@ -99,16 +99,16 @@ function App() {
 
           {notes.map((note) => (
             <div key={note.id} style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '15px' }}>
-              <h3>{Array.isArray(note.title) ? note.title[0] : note.title}</h3>
+              <h3>{Array.isArray(note.title) ? note.title.join('') : note.title}</h3>
 
 <p>
   <strong>Description:</strong>{' '}
-  {Array.isArray(note.description) ? note.description[0] : note.description}
+  {Array.isArray(note.description) ? note.description.join('') : note.description}
 </p>
 
 <p>
   <strong>Content:</strong>{' '}
-  {Array.isArray(note.content) ? note.content[0] : note.content}
+  {Array.isArray(note.content) ? note.content.join('') : note.content}
 </p>
               <button onClick={() => updateNote(note.id)}>Update</button>
               <button onClick={() => deleteNote(note.id)} style={{ marginLeft: '10px' }}> 
